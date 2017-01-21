@@ -10,6 +10,22 @@
     <script type="text/javascript" src="js/utils/data_utils.js"></script>
     <script type="text/javascript" src="js/utils/string_utils.js"></script>
   	<script type="text/javascript" src="js/main.js"></script>
+
+    <meta charset="utf-8">
+    <title>Street View side-by-side</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #pano {
+        float: left;
+        height: 100%;
+        width: 90%;
+      }
+    </style>
+
   </head>
   <body>
     <p><a href="#" onClick="startSession();">Start Session</a></p>
@@ -17,5 +33,45 @@
     <p><a href="#" onClick="startSpeechRecog();">Start Speech Recognition</a></p>
     <p><a href="#" onClick="startRecording();">Start Recording</a></p>
     <p><a href="#" onClick="stopRecording();">Stop Recording</a></p>
+    <div id="pano"></div>
+    <script>
+
+      var address = "Montreal";
+      var geocoder;
+      var latitude;
+      var longitude;
+      function initialize() {
+
+
+        var geocoder = new google.maps.Geocoder();
+        var address = "mcgill";
+
+        geocoder.geocode( { 'address': address}, function(results, status) {
+
+          if (status == google.maps.GeocoderStatus.OK) {
+            latitude = parseFloat(results[0].geometry.location.lat());
+            longitude = parseFloat(results[0].geometry.location.lng());
+            var fenway = {lat: latitude, lng: longitude};
+            var panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById('pano'), {
+                      position: fenway,
+                      pov: {
+                        heading: 34,
+                        pitch: 10
+                      }
+                    });
+
+
+          }
+        });
+
+        console.log(latitude);
+        console.log(longitude);
+
+      }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB7358m7MeGnXy-5l4GC7ypl0oP-IJEkQ&callback=initialize">
+    </script>
   </body>
 </html>
