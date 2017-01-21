@@ -1,31 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      #map {
-        height: 400px;
-        width: 100%;
-       }
-    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/audio/audio_handlers.js"></script>
+    <script type="text/javascript" src="js/audio/resampler.js"></script>
+    <script type="text/javascript" src="js/utils/tagit/tag-it.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/utils/promises/q.js"></script>
+    <script type="text/javascript" src="js/utils/data_utils.js"></script>
+    <script type="text/javascript" src="js/utils/string_utils.js"></script>
+  	<script type="text/javascript" src="js/main.js"></script>
   </head>
   <body>
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
-    <script>
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1TgM67TXcMUtla9XYVhFkVSnqPY1dqIA&callback=initMap">
-    </script>
+    <p><a href="#" onClick="startSession();">Start Session</a></p>
+    <p><a href="#" onClick="endSession();">End Session</a></p>
+    <p><a href="#" onClick="startSpeechRecog();">Start Speech Recognition</a></p>
+    <p><a href="#" onClick="startRecording();">Start Recording</a></p>
+    <p><a href="#" onClick="stopRecording();">Stop Recording</a></p>
   </body>
 </html>
