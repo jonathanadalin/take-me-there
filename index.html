@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/audio/audio_handlers.js"></script>
@@ -9,51 +9,48 @@
     <script type="text/javascript" src="js/utils/promises/q.js"></script>
     <script type="text/javascript" src="js/utils/data_utils.js"></script>
     <script type="text/javascript" src="js/utils/string_utils.js"></script>
-  	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 
     <meta charset="utf-8">
     <title>Street View side-by-side</title>
     <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      .pano {
-        float: left;
-        height: 100%;
-        width: 50%;
-      }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pano {
+            float: left;
+            height: 100%;
+            width: 50%;
+        }
     </style>
 
-  </head>
-  <body>
-    <p><a href="#" onClick="startSession();">Start Session</a></p>
-    <p><a href="#" onClick="startSpeechRecog();">Start Speech Recognition</a></p>
-    <p><a href="#" onClick="startRecording();">Start Recording</a></p>
-    <p><a href="#" onClick="stopRecording();">Stop Recording</a></p>
-    <p><a href="#" onClick="goToLocation();">Go To Location</a></p>
-    <p><a href="#" onClick="endSession();">End Session</a></p>
-    <div class="pano"></div>
-    <div class="pano"></div>
-    <script>
-
-      var latitude;
-      var longitude;
-      function initialize() {
+</head>
+<body>
+<div class="pano"></div>
+<div class="pano"></div>
+<script>
+    startSession();
+    setTimeout(startSpeechRecog, 500);
+    setTimeout(startRecording, 1000);
+    setTimeout(stopRecording, 5000);
+    var latitude;
+    var longitude;
+    setTimeout(initialize, 5050);
+    function initialize() {
 
         var geocoder = new google.maps.Geocoder();
-        var address = "mcgill";
+        geocoder.geocode({'address': newlocation}, function (results, status) {
 
-        geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                latitude = parseFloat(results[0].geometry.location.lat());
+                longitude = parseFloat(results[0].geometry.location.lng());
+                var fenway = {lat: latitude, lng: longitude};
 
-          if (status == google.maps.GeocoderStatus.OK) {
-            latitude = parseFloat(results[0].geometry.location.lat());
-            longitude = parseFloat(results[0].geometry.location.lng());
-            var fenway = {lat: latitude, lng: longitude};
-
-            for (var i = 0; i < 2; i++) {
-                var panorama = new google.maps.StreetViewPanorama(
+                for (var i = 0; i < 2; i++) {
+                    var panorama = new google.maps.StreetViewPanorama(
                         document.getElementsByClassName('pano')[i], {
                             position: fenway,
                             pov: {
@@ -62,19 +59,18 @@
                                 motionTracking: true
                             }
                         }
-                );
+                    );
+                }
+
             }
-
-          }
         });
-
         console.log(latitude);
         console.log(longitude);
+    }
 
-      }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB7358m7MeGnXy-5l4GC7ypl0oP-IJEkQ&callback=initialize">
-    </script>
-  </body>
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB7358m7MeGnXy-5l4GC7ypl0oP-IJEkQ">
+</script>
+</body>
 </html>
