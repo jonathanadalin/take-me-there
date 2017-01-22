@@ -26,6 +26,9 @@ var currentCommand;
 // The WebSocket
 var socket;
 
+// Where to go
+var newlocation;
+
 function initWebSocket() {
 
     socket = new WebSocket("wss://" + sHost + ":" + sPort + "/" + socketPath); // The WebSocket must be secure "wss://"
@@ -67,8 +70,13 @@ function initWebSocket() {
     socket.onmessage = function (event) {
         console.log("socket RECEIVED:");
         var response = JSON.parse(event.data);
-        console.log(response);
-        console.log(JSON.stringify(response, null, 4));
+        var stringResult = JSON.stringify(response, null, 4);
+        console.log(stringResult);
+        var startIndex = stringResult.search("Take me to")
+        var substring = stringResult.substr(startIndex+11);
+        var endIndex = substring.search('"');
+        var searchString = substring.substr(0, endIndex);
+        newlocation = searchString;
     }
 }
 
@@ -166,4 +174,8 @@ function stopRecording() {
     socket.send(JSON.stringify({
         endcommand: {}
     }));
+}
+
+function goToLocation() {
+    console.log(newlocation);
 }
