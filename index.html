@@ -29,20 +29,18 @@
   </head>
   <body>
     <p><a href="#" onClick="startSession();">Start Session</a></p>
-    <p><a href="#" onClick="endSession();">End Session</a></p>
     <p><a href="#" onClick="startSpeechRecog();">Start Speech Recognition</a></p>
     <p><a href="#" onClick="startRecording();">Start Recording</a></p>
     <p><a href="#" onClick="stopRecording();">Stop Recording</a></p>
+    <p><a href="#" onClick="goToLocation();">Go To Location</a></p>
+    <p><a href="#" onClick="endSession();">End Session</a></p>
     <div class="pano"></div>
     <div class="pano"></div>
     <script>
 
-      var address = "Montreal";
-      var geocoder;
       var latitude;
       var longitude;
       function initialize() {
-
 
         var geocoder = new google.maps.Geocoder();
         var address = "mcgill";
