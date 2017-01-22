@@ -19,10 +19,10 @@
         margin: 0;
         padding: 0;
       }
-      #pano {
+      .pano {
         float: left;
         height: 100%;
-        width: 90%;
+        width: 50%;
       }
     </style>
 
@@ -33,7 +33,8 @@
     <p><a href="#" onClick="startSpeechRecog();">Start Speech Recognition</a></p>
     <p><a href="#" onClick="startRecording();">Start Recording</a></p>
     <p><a href="#" onClick="stopRecording();">Stop Recording</a></p>
-    <div id="pano"></div>
+    <div class="pano"></div>
+    <div class="pano"></div>
     <script>
 
       var address = "Montreal";
@@ -52,15 +53,19 @@
             latitude = parseFloat(results[0].geometry.location.lat());
             longitude = parseFloat(results[0].geometry.location.lng());
             var fenway = {lat: latitude, lng: longitude};
-            var panorama = new google.maps.StreetViewPanorama(
-                    document.getElementById('pano'), {
-                      position: fenway,
-                      pov: {
-                        heading: 34,
-                        pitch: 10
-                      }
-                    });
 
+            for (var i = 0; i < 2; i++) {
+                var panorama = new google.maps.StreetViewPanorama(
+                        document.getElementsByClassName('pano')[i], {
+                            position: fenway,
+                            pov: {
+                                heading: 34,
+                                pitch: 10,
+                                motionTracking: true
+                            }
+                        }
+                );
+            }
 
           }
         });
