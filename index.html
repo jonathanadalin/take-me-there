@@ -33,12 +33,13 @@
 <div class="pano"></div>
 <script>
     startSession();
-    setTimeout(startSpeechRecog, 500);
-    setTimeout(startRecording, 1000);
-    setTimeout(stopRecording, 5000);
+    setTimeout(startSpeechRecog, 2500);
+    setTimeout(startRecording, 2505);
+    setTimeout(stopRecording, 8000);
     var latitude;
     var longitude;
-    setTimeout(initialize, 5050);
+    setTimeout(initialize, 8050);
+    setTimeout(endSession,9000);
     function initialize() {
 
         var geocoder = new google.maps.Geocoder();

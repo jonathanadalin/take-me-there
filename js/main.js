@@ -175,7 +175,3 @@ function stopRecording() {
         endcommand: {}
     }));
 }
-
-function goToLocation() {
-    console.log(newlocation);
-}
