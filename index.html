@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="js/audio/audio_handlers.js"></script>
-    <script type="text/javascript" src="js/audio/resampler.js"></script>
-    <script type="text/javascript" src="js/utils/tagit/tag-it.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/utils/promises/q.js"></script>
-    <script type="text/javascript" src="js/utils/data_utils.js"></script>
-    <script type="text/javascript" src="js/utils/string_utils.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB7358m7MeGnXy-5l4GC7ypl0oP-IJEkQ">
+    </script>
     <meta charset="utf-8">
     <title>Street View side-by-side</title>
     <style>
@@ -19,60 +13,22 @@
             margin: 0;
             padding: 0;
         }
-
         .pano {
             float: left;
             height: 100%;
             width: 50%;
         }
     </style>
-
 </head>
 <body>
 <body style="background-color:salmon;">
 <div class="pano"></div>
 <div class="pano"></div>
 <script>
-    startSession();
-    setTimeout(startSpeechRecog, 2000);
-    setTimeout(startRecording, 2050);
-    setTimeout(stopRecording, 8000);
     var latitude;
     var longitude;
-    setTimeout(initialize, 10050);
-    setTimeout(endSession,20000);
-    function initialize() {
-
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({'address': newlocation}, function (results, status) {
-
-            if (status == google.maps.GeocoderStatus.OK) {
-                latitude = parseFloat(results[0].geometry.location.lat());
-                longitude = parseFloat(results[0].geometry.location.lng());
-                var fenway = {lat: latitude, lng: longitude};
-
-                for (var i = 0; i < 2; i++) {
-                    var panorama = new google.maps.StreetViewPanorama(
-                        document.getElementsByClassName('pano')[i], {
-                            position: fenway,
-                            pov: {
-                                heading: 34,
-                                pitch: 10,
-                                motionTracking: true
-                            }
-                        }
-                    );
-                }
-
-            }
-        });
-        console.log(latitude);
-        console.log(longitude);
-    }
-
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB7358m7MeGnXy-5l4GC7ypl0oP-IJEkQ">
+    newlocation = "Times Square"; // Default location until voice recognition replaced.
+    setTimeout(initializeStreetView, 50);
 </script>
 </body>
 </html>
